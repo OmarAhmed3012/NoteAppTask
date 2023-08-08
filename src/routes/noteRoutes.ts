@@ -4,7 +4,7 @@ import multer from 'multer';
 import { NoteController } from '../controllers/noteController';
 import { handleValidationErrors } from '../middleware/validation';
 import { authenticationMiddleware } from '../middleware/authentication'; 
-import { body } from 'express-validator';
+import { body, check } from 'express-validator';
 
 const noteRoutes = express.Router();
 const noteController = new NoteController();
@@ -18,7 +18,12 @@ const createNoteValidation = [
   body('title').notEmpty().withMessage('Title is required'),
   body('body').notEmpty().withMessage('Body is required'),
   body('typeId').isInt().withMessage('Type ID must be an integer'),
-  body('mediaFiles').optional({ nullable: true }).isArray().withMessage('Media files must be an array'),
+  check('mediaFiles').custom((value, { req }) => {
+    if (!req.files || req.files.length === 0) {
+      throw new Error('Media files are required');
+    }
+    return true;
+  }),
   handleValidationErrors,
 ];
 
