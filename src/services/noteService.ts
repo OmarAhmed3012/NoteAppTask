@@ -10,8 +10,8 @@ export class NoteService {
     title: string,
     body: string,
     type: NoteType,
-    mediaFiles: string[],
     user: User,
+    mediaFiles: string[],
   ): Promise<Note> {
     const note = new Note();
     note.noteTitle = title;
