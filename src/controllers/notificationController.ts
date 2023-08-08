@@ -1,4 +1,5 @@
 import { NotificationService } from '../services/notificationService';
+import { NoteStats } from '../models/noteStats';
 
 export class NotificationController {
   private notificationService: NotificationService;
