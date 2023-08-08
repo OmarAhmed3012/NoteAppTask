@@ -37,4 +37,15 @@ export class UserController {
       return res.status(500).json({ message: 'Internal Server Error' });
     }
   }
+
+  async toggleDailyNotifications(req: Request, res: Response) {
+    const { userId, isEnabled } = req.body;
+
+    try {
+      await userService.toggleDailyNotifications(userId, isEnabled);
+      return res.status(200).json({ message: 'Daily notifications toggled successfully' });
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
 }
