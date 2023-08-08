@@ -1,18 +1,16 @@
 import { NotificationService } from '../services/notificationService';
 import { NoteStats } from '../models/noteStats';
+import { User } from '../models/user';
+
+const notificationService = new NotificationService();
 
 export class NotificationController {
-  private notificationService: NotificationService;
-
-  constructor() {
-    this.notificationService = new NotificationService();
-  }
 
   public scheduleNotifications(): void {
-    this.notificationService.scheduleDailyNotifications();
+    notificationService.scheduleDailyNotifications();
   }
 
-  public sendNotification(userId: number, noteStats: NoteStats): void {
-    this.notificationService.sendNotification(userId, noteStats);
+  public sendNotification(user: User, noteStats: NoteStats): void {
+    notificationService.sendNotification(user, noteStats);
   }
 }

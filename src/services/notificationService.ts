@@ -26,11 +26,11 @@ export class NotificationService {
 
   private calculateNoteStats(notes: Note[]): NoteStats {
       let totalNotes = notes.length;
-      let totalWords = notes.reduce((total, note) => total + note.body.split(' ').length, 0);
+      let totalWords = notes.reduce((total, note) => total + note.noteBody.split(' ').length, 0);
       return { totalNotes, totalWords };
     }
 
-  private sendNotification(user: User, noteStats: NoteStats): void {
+  public sendNotification(user: User, noteStats: NoteStats): void {
       // Here we would use a notification service to send the notification
       console.log(`User ${user.name} has ${noteStats.totalNotes} notes with ${noteStats.totalWords} words.`);
     }

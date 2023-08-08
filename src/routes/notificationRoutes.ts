@@ -5,6 +5,6 @@ const notificationRoutes = express.Router();
 const notificationController = new NotificationController();
 
 notificationRoutes.get('/notifications', notificationController.getAllNotifications);
-notificationRoutes.post('/notifications', notificationController.scheduleNotification);
+notificationRoutes.post('/notifications', notificationController.scheduleNotifications);
 
 export default notificationRoutes;
