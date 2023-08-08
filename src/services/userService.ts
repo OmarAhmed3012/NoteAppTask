@@ -24,13 +24,13 @@ export class UserService {
   }
 
   public async toggleDailyNotifications(userId: number, isEnabled: boolean): Promise<void> {
-    const user = await this.userRepository.findOne(userId);
-
-    if (!user) {
-      throw new Error('User not found');
+      const user = await this.userRepository.findOne(userId);
+  
+      if (!user) {
+        throw new Error('User not found');
+      }
+  
+      user.dailyNotificationEnabled = isEnabled;
+      await this.userRepository.save(user);
     }
-
-    user.dailyNotificationEnabled = isEnabled;
-    await this.userRepository.save(user);
-  }
 }
