@@ -17,5 +17,6 @@ userRoutes.get('/users/:id', userController.getUserById);
 
 userRoutes.get('/users', userController.getAllUsers);
 
+userRoutes.put('/users/:id/notifications', userController.toggleDailyNotifications);
 
 export default userRoutes;

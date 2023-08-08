@@ -22,4 +22,15 @@ export class UserService {
   public async getAllUsers(): Promise<User[]> {
     return this.userRepository.find();
   }
+
+  public async toggleDailyNotifications(userId: number, isEnabled: boolean): Promise<void> {
+      const user = await this.userRepository.findOne(userId);
+  
+      if (!user) {
+        throw new Error('User not found');
+      }
+  
+      user.dailyNotificationEnabled = isEnabled;
+      await this.userRepository.save(user);
+    }
 }
