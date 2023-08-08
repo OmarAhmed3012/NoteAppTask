@@ -12,6 +12,10 @@ export class NoteController {
     const { title, body, typeId } = req.body;
     const mediaFiles = Array.isArray(req.files) ? req.files.map(file => file.path) : [];
 
+    if (req.files.length === 0) {
+      return res.status(400).json({ message: 'File is required' });
+    }
+
     try {
       const user = await userService.getUserById(req.user.id);
       const noteType = await noteTypeService.getNoteTypeById(typeId);
