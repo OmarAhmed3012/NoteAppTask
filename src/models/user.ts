@@ -15,4 +15,7 @@ export class User {
 
   @OneToMany(() => Note, (note) => note.user)
   notes !: Note[];
+  
+  @Column({ default: false })
+  dailyNotificationEnabled !: boolean;
 }
