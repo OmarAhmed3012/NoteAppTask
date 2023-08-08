@@ -47,9 +47,9 @@ export class NoteService {
       throw new Error('File is required');
     }
 
-    // Save the file to the specified path
-    const filePath = '/path/to/save/file';
-    // Implement the logic to save the file here
+    // Save the file to the desired path
+    const filePath = '/desired/path/to/save/file';
+    // Implement the file saving mechanism here
 
     return filePath;
   }
