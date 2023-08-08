@@ -41,6 +41,10 @@ export class UserController {
   async toggleDailyNotifications(req: Request, res: Response) {
     const { userId, isEnabled } = req.body;
 
+    if (typeof userId !== 'number' || typeof isEnabled !== 'boolean') {
+      return res.status(400).json({ message: 'Invalid input' });
+    }
+
     try {
       await userService.toggleDailyNotifications(userId, isEnabled);
       return res.status(200).json({ message: 'Daily notifications toggled successfully' });
