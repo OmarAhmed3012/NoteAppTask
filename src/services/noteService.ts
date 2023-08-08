@@ -41,4 +41,16 @@ export class NoteService {
   public async deleteNotes(noteIds: number[]): Promise<void> {
     await this.noteRepository.update(noteIds, {isDeleted: true});
   }
+
+  public async uploadFile(file: Express.Multer.File): Promise<string> {
+    if (!file) {
+      throw new Error('File is required');
+    }
+
+    // Save the file to the specified path
+    const filePath = '/path/to/save/file';
+    // Implement the logic to save the file here
+
+    return filePath;
+  }
 }
