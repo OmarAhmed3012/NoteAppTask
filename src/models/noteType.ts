@@ -1,4 +1,3 @@
-// src/models/noteType.ts
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Note } from './note';
 
@@ -13,7 +12,6 @@ export class NoteType {
   @Column({ default: false })
   disabled !: boolean;
 
-  // Add any other properties and relationships as needed
 
   @OneToMany(() => Note, (note) => note.noteType)
   notes !: Note[];

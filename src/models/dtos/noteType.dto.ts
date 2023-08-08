@@ -1,5 +1,5 @@
 export class NoteTypeDto {
-    typeName !: string;
-    disabled !: boolean;
+    typeName : string;
+    disabled : boolean;
   }
   

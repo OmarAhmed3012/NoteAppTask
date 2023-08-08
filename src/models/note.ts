@@ -14,13 +14,13 @@ export class Note {
   noteBody !: string;
 
   @Column({ type: 'text', array: true, nullable: true })
-  noteMediaFiles !: string[]; // Store media file URLs
+  noteMediaFiles !: string[]; 
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   creationDateTime !: Date;
 
   @Column({ default: false })
-  isDeleted !: boolean; // For soft delete
+  isDeleted !: boolean; 
 
   @ManyToOne(() => User, (user) => user.notes)
   user !: User;

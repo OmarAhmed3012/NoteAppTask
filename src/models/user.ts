@@ -9,10 +9,9 @@ export class User {
   @Column()
   name !: string;
 
-  @Column()
-  profilePicture !: string;
+  @Column({ nullable: true, default: 'default_profile_picture.png' })
+  profilePicture?: string;
 
-  // Add any other properties and relationships as needed
 
   @OneToMany(() => Note, (note) => note.user)
   notes !: Note[];
