@@ -1,6 +1,7 @@
 import cron from 'node-cron';
 import { UserService } from './userService';
 import { NoteService } from './noteService';
+import { Note, User, NoteStats } from '../models';
 
 const userService = new UserService();
 const noteService = new NoteService();
@@ -22,10 +23,13 @@ export class NotificationService {
   }
 
   private calculateNoteStats(notes: Note[]): NoteStats {
-    // Calculate note statistics
-  }
+      let totalNotes = notes.length;
+      let totalWords = notes.reduce((total, note) => total + note.body.split(' ').length, 0);
+      return { totalNotes, totalWords };
+    }
 
   private sendNotification(user: User, noteStats: NoteStats): void {
-    // Send notification to user
-  }
+      // Here we would use a notification service to send the notification
+      console.log(`User ${user.name} has ${noteStats.totalNotes} notes with ${noteStats.totalWords} words.`);
+    }
 }
