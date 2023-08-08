@@ -1,5 +1,5 @@
 import { NotificationService } from '../services/notificationService';
-import { NoteStats } from '../models/noteStats';
+import { Note } from '../models/note';
 import { User } from '../models/user';
 
 const notificationService = new NotificationService();
@@ -10,7 +10,7 @@ export class NotificationController {
     notificationService.scheduleDailyNotifications();
   }
 
-  public sendNotification(user: User, noteStats: NoteStats): void {
-    notificationService.sendNotification(user, noteStats);
+  public sendNotification(user: User, note: Note): void {
+    notificationService.sendNotification(user, note.noteBody);
   }
 }

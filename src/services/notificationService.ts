@@ -3,7 +3,7 @@ import { UserService } from './userService';
 import { NoteService } from './noteService';
 import { Note } from '../models/note';
 import { User } from '../models/user';
-import { NoteStats } from '../models/noteStats';
+import { NoteType } from '../models/noteType';
 
 const userService = new UserService();
 const noteService = new NoteService();
@@ -24,14 +24,27 @@ export class NotificationService {
     });
   }
 
-  private calculateNoteStats(notes: Note[]): NoteStats {
-      let totalNotes = notes.length;
-      let totalWords = notes.reduce((total, note) => total + note.noteBody.split(' ').length, 0);
-      return { totalNotes, totalWords };
+  private calculateNoteStats(notes: Note[]): string {
+    const noteTypeCounts: Record<string, number> = {};
+
+    for (const note of notes) {
+      const typeName = note.noteType.typeName;
+      if (noteTypeCounts[typeName]) {
+        noteTypeCounts[typeName]++;
+      } else {
+        noteTypeCounts[typeName] = 1;
+      }
     }
 
-  public sendNotification(user: User, noteStats: NoteStats): void {
+    const noteStats = Object.entries(noteTypeCounts)
+      .map(([typeName, count]) => `You got new ${count} ${typeName} notes`)
+      .join(', ');
+
+    return noteStats;
+  }
+
+  public sendNotification(user: User, note: string): void {
       // Here we would use a notification service to send the notification
-      console.log(`User ${user.name} has ${noteStats.totalNotes} notes with ${noteStats.totalWords} words.`);
+      console.log(`User ${user.name} has new Note, ${note}`);
     }
 }
