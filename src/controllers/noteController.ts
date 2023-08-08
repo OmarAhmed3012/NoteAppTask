@@ -9,7 +9,8 @@ const noteTypeService = new NoteTypeService();
 
 export class NoteController {
   async createNote(req: Request, res: Response) {
-    const { title, body, typeId, mediaFiles } = req.body;
+    const { title, body, typeId } = req.body;
+    const mediaFiles = req.files.map(file => file.path);
 
     try {
       const user = await userService.getUserById(req.user.id);
@@ -19,7 +20,7 @@ export class NoteController {
         return res.status(404).json({ message: 'User or Note Type not found' });
       }
 
-      const note = await noteService.createNote(title, body, noteType, mediaFiles, user);
+      const note = await noteService.createNote(title, body, noteType, user, mediaFiles);
       return res.status(201).json(note);
     } catch (error) {
       return res.status(500).json({ message: 'Internal Server Error' });
