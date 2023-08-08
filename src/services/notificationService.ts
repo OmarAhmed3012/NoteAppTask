@@ -1,7 +1,9 @@
 import cron from 'node-cron';
 import { UserService } from './userService';
 import { NoteService } from './noteService';
-import { Note, User, NoteStats } from '../models';
+import { Note } from '../models/note';
+import { User } from '../models/user';
+import { NoteStats } from '../models/noteStats';
 
 const userService = new UserService();
 const noteService = new NoteService();
