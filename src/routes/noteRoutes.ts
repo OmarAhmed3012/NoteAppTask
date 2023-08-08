@@ -1,5 +1,6 @@
 // src/routes/noteRoutes.ts
 import express, { Request, Response } from 'express';
+import multer from 'multer';
 import { NoteController } from '../controllers/noteController';
 import { handleValidationErrors } from '../middleware/validation';
 import { authenticationMiddleware } from '../middleware/authentication'; 
@@ -7,6 +8,11 @@ import { body } from 'express-validator';
 
 const noteRoutes = express.Router();
 const noteController = new NoteController();
+
+const upload = multer({
+  dest: 'uploads/',
+  limits: { fileSize: 1.7 * 1024 * 1024 },
+});
 
 const createNoteValidation = [
   body('title').notEmpty().withMessage('Title is required'),
@@ -16,7 +22,7 @@ const createNoteValidation = [
   handleValidationErrors,
 ];
 
-noteRoutes.post('/notes', authenticationMiddleware, createNoteValidation, noteController.createNote);
+noteRoutes.post('/notes', authenticationMiddleware, upload.array('mediaFiles'), createNoteValidation, noteController.createNote);
 
 const deleteNotesValidation = [
   body('noteIds').notEmpty().isArray().withMessage('Note IDs must be a non-empty array'),
